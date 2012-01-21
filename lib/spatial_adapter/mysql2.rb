@@ -3,12 +3,12 @@ require 'spatial_adapter/base/mysql'
 require 'active_record/connection_adapters/mysql2_adapter'
 
 module ActiveRecord::ConnectionAdapters
-  class SpatialMysql2Column < Mysql2Column
-    include SpatialAdapter::SpatialColumn
-    extend SpatialAdapter::Base::Mysql::SpatialColumn
-  end
-
-  class Mysql2Adapter
+  class Mysql2Adapter < AbstractMysqlAdapter
+    class SpatialMysql2Column < Column
+      include SpatialAdapter::SpatialColumn
+      extend SpatialAdapter::Base::Mysql::SpatialColumn
+    end
+    
     include SpatialAdapter::Base::Mysql::Adapter
 
     #Redefinition of columns to add the information that a column is geometric
@@ -16,9 +16,9 @@ module ActiveRecord::ConnectionAdapters
       show_fields_from(table_name, name).map do |field|
         klass = \
           if field[1] =~ GEOMETRY_REGEXP
-            ActiveRecord::ConnectionAdapters::SpatialMysql2Column
+            ActiveRecord::ConnectionAdapters::Mysql2Adapter::SpatialMysql2Column
           else
-            ActiveRecord::ConnectionAdapters::Mysql2Column
+            ActiveRecord::ConnectionAdapters::Mysql2Adapter::Column
           end
         klass.new(field[0], field[4], field[1], field[2] == "YES")
       end

@@ -11,6 +11,7 @@
 
 require 'geo_ruby'
 require 'active_record'
+require 'active_support'
 
 include GeoRuby::SimpleFeatures
 

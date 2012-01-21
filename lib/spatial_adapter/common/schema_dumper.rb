@@ -1,3 +1,5 @@
+require 'active_support/core_ext/class/attribute_accessors'
+
 ActiveRecord::SchemaDumper.ignore_tables << "spatial_ref_sys" << "geometry_columns"
 
 ActiveRecord::SchemaDumper.class_eval do
