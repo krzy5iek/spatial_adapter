@@ -36,5 +36,5 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'activerecord'
   s.add_dependency 'activesupport'
-  s.add_dependency 'GeoRuby', '>= 1.3.0'
+  s.add_dependency 'georuby'
 end
