@@ -2,7 +2,7 @@ require 'arel/visitors/to_sql'
 
 module Arel
   module Visitors
-    class ToSql < Arel::Visitors::Visitor
+    class ToSql < Arel::Visitors::Reduce
       private
       def spatial o; visit(o.as_hex_ewkb) end
 
